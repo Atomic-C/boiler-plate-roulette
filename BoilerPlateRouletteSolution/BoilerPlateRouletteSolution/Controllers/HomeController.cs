@@ -20,11 +20,13 @@ namespace BoilerPlateRouletteSolution.Controllers
 
         public IActionResult Index()
         {
+            Debug.WriteLine("Pedro was in Index action method");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            Debug.WriteLine("Pedro was in Privacy action method");
             return View();
         }
 
