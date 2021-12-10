@@ -1,6 +1,8 @@
+using BoilerPlateRouletteSolution.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,10 @@ namespace BoilerPlateRouletteSolution
         // We will be registering services provided by .net core framework as well as custom services I we create!
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 
+            // Abov we get the connection string and pass it to the options for sql server
+
             services.AddControllersWithViews(); // By default MVC is registered with the basic template.
         }
 
