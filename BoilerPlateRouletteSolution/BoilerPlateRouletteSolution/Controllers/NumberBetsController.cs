@@ -30,6 +30,20 @@ namespace BoilerPlateRouletteSolution.Controllers
         public IActionResult InsertNumber()
         {
             return View();
+        }   
+        
+        // POST FOR INSERT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertNumber(NumberStats obj)
+        {
+
+
+
+            _applicationDbContext.NumberStats.Add(obj);
+            _applicationDbContext.SaveChanges();
+            Debug.WriteLine("Pedro was here");
+            return Redirect("Index");
         }
     }
 }
