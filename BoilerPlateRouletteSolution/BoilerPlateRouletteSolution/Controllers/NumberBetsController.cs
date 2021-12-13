@@ -26,7 +26,8 @@ namespace BoilerPlateRouletteSolution.Controllers
             return View(objList);
         }
 
-        public IActionResult Insertions()
+        // GET FOR INSERT
+        public IActionResult InsertNumber()
         {
             return View();
         }
