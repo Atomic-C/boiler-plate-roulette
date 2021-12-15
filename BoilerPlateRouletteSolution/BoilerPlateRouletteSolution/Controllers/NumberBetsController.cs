@@ -42,16 +42,60 @@ namespace BoilerPlateRouletteSolution.Controllers
             // Increment number's quantity
             // get color
             // Calculate statistic
+
             if (ModelState.IsValid)
             {
-
                   _applicationDbContext.NumberStats.Add(obj);
+                //_applicationDbContext.NumberStats.Update(); ;
+
                   _applicationDbContext.SaveChanges();
 
                      return Redirect("Index");
-
             }
                 return View(obj);
+
+
+        }
+
+        // GET FOR EDIT
+        public IActionResult Edit(int id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound(); // INVALID
+            }
+
+            NumberStats obj = _applicationDbContext.NumberStats.Find(id);
+            if (obj == null)
+            {
+                return NotFound(); // Record was not found.
+            }
+
+            return View(obj); // Show the record if it was found on NumberStats
+        }
+
+
+        // POST FOR EDIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(NumberStats obj) // User inserts a number, is passed here
+        {
+            //obj.Number % = 0;
+
+            // number is even
+            // Increment number's quantity
+            // get color
+            // Calculate statistic
+
+            if (ModelState.IsValid)
+            {
+
+                _applicationDbContext.NumberStats.Update(obj);
+                _applicationDbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View(obj);
 
 
         }
