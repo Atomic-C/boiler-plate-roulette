@@ -20,7 +20,6 @@ namespace BoilerPlateRouletteSolution.Controllers
         public IActionResult Index()
         {
             IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
-            Debug.WriteLine("Pedro was here!");
             Debug.WriteLine(objList);
 
             return View(objList);
@@ -35,15 +34,26 @@ namespace BoilerPlateRouletteSolution.Controllers
         // POST FOR INSERT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertNumber(NumberStats obj)
+        public IActionResult InsertNumber(NumberStats obj) // User inserts a number, is passed here
         {
+            //obj.Number % = 0;
+
+            // number is even
+            // Increment number's quantity
+            // get color
+            // Calculate statistic
+            if (ModelState.IsValid)
+            {
+
+                  _applicationDbContext.NumberStats.Add(obj);
+                  _applicationDbContext.SaveChanges();
+
+                     return Redirect("Index");
+
+            }
+                return View(obj);
 
 
-
-            _applicationDbContext.NumberStats.Add(obj);
-            _applicationDbContext.SaveChanges();
-            Debug.WriteLine("Pedro was here");
-            return Redirect("Index");
         }
     }
 }
