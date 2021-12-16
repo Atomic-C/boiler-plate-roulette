@@ -58,7 +58,7 @@ namespace BoilerPlateRouletteSolution.Controllers
         }
 
         // GET FOR EDIT
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
             {
@@ -96,6 +96,49 @@ namespace BoilerPlateRouletteSolution.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
+
+
+        }
+
+        // GET FOR DELETE
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound(); // INVALID
+            }
+
+            NumberStats obj = _applicationDbContext.NumberStats.Find(id); // We retrive the object based on ID
+            if (obj == null)
+            {
+                return NotFound(); // Record was not found.
+            }
+
+            return View(obj); // Show the record if it was found on NumberStats
+        }
+
+
+        // POST FOR DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id) // User inserts a number, is passed here
+        {
+            //obj.Number % = 0;
+
+            // number is even
+            // Increment number's quantity
+            // get color
+            // Calculate statistic
+
+            NumberStats obj = _applicationDbContext.NumberStats.Find(id); // We retrive the object based on ID
+            if (obj == null)
+            {
+                return NotFound(); // If we have nothing to delete
+            }
+                _applicationDbContext.NumberStats.Remove(obj);
+                _applicationDbContext.SaveChanges();
+
+                return RedirectToAction("Index");
 
 
         }
