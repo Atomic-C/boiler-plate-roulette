@@ -7,7 +7,7 @@ namespace BoilerPlateRouletteSolution.Models
 {
     public class Wheel
     {
-        public WheelNumber[] WheelNumbers = { new WheelNumber(1, WheelNumberColorEnum.Black) };
+        public WheelNumber[] WheelNumbers = { new WheelNumber(1, WheelNumberColorEnum.Red), new WheelNumber(1, WheelNumberColorEnum.Black) };
 
 
     }
