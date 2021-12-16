@@ -43,18 +43,21 @@ namespace BoilerPlateRouletteSolution.Controllers
             // get color
             // Calculate statistic
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
                   _applicationDbContext.NumberStats.Add(obj);
-                //_applicationDbContext.NumberStats.Update(); ;
 
                   _applicationDbContext.SaveChanges();
 
                      return Redirect("Index");
             }
+
+            if (true)
+            {
+
+            }
+
                 return View(obj);
-
-
         }
 
         // GET FOR EDIT
