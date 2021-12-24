@@ -34,7 +34,7 @@ namespace BoilerPlateRouletteSolution.Controllers
         // POST FOR INSERT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertNumber(NumberStats obj) // User inserts a number, is passed here
+        public IActionResult InsertNumber(NumberStats obj, int? id) // User inserts a number, is passed here
         {
             //obj.Number % = 0;
 
@@ -45,17 +45,20 @@ namespace BoilerPlateRouletteSolution.Controllers
 
             if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
-                  _applicationDbContext.NumberStats.Add(obj);
+
+                IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
+                foreach (var item in objList)
+                {
+                    obj.Quantity = obj.Quantity + 1;
+                }
+                _applicationDbContext.NumberStats.Add(obj);
 
                   _applicationDbContext.SaveChanges();
 
                      return Redirect("Index");
             }
 
-            if (true)
-            {
 
-            }
 
                 return View(obj);
         }
