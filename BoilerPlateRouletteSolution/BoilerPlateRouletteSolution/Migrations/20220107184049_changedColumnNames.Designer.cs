@@ -3,14 +3,16 @@ using BoilerPlateRouletteSolution.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BoilerPlateRouletteSolution.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220107184049_changedColumnNames")]
+    partial class changedColumnNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,8 +33,8 @@ namespace BoilerPlateRouletteSolution.Migrations
                     b.Property<double>("EvenPercentage")
                         .HasColumnType("float");
 
-                    b.Property<double>("Number")
-                        .HasColumnType("float");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<double>("OddCount")
                         .HasColumnType("float");

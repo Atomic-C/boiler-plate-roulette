@@ -3,14 +3,16 @@ using BoilerPlateRouletteSolution.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BoilerPlateRouletteSolution.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220107182719_addedOddEvenTotalcolumns")]
+    partial class addedOddEvenTotalcolumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,26 +27,26 @@ namespace BoilerPlateRouletteSolution.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<double>("EvenCount")
-                        .HasColumnType("float");
-
-                    b.Property<double>("EvenPercentage")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Number")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OddCount")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OddPercentage")
-                        .HasColumnType("float");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<double>("TotalNumberCount")
-                        .HasColumnType("float");
+                    b.Property<int>("evenCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("evenPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("oddCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("oddPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("totalNumberCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

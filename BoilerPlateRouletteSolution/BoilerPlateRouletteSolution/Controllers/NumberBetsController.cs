@@ -45,12 +45,29 @@ namespace BoilerPlateRouletteSolution.Controllers
 
             if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
+                //IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
+                //foreach (var item in objList)
+                //{
+                //    obj.Quantity = obj.Quantity + 1;
+                //}
+                var totalNumbersInDb = _applicationDbContext.NumberStats.FirstOrDefault(u=>u.TotalNumberCount == obj.TotalNumberCount).TotalNumberCount;
 
-                IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
-                foreach (var item in objList)
+                if (obj.Number % 2 == 0) // if it's even
                 {
-                    obj.Quantity = obj.Quantity + 1;
+                    obj.EvenCount += 1; // add to even
                 }
+                else // else ut's odd
+                {
+                    obj.OddCount += 1; // add to odd
+                }
+
+                obj.TotalNumberCount += 1; // increment total by 1
+
+                obj.OddPercentage = (obj.OddCount / totalNumbersInDb) * 100;
+                obj.EvenPercentage = (obj.EvenCount / totalNumbersInDb) * 100;
+
+
+
                 _applicationDbContext.NumberStats.Add(obj);
 
                   _applicationDbContext.SaveChanges();
