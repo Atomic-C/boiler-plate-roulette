@@ -25,23 +25,17 @@
                         Number
                     </th>
                     <th>
-                        Quantity
+                        Odd %
                     </th>
                     <th>
-                        Odd
+                        Even %
                     </th>
                     <th>
-                        Even
-                    </th>
-                    @*<th>
-                        Even\Odd
+                        OddCount
                     </th>
                     <th>
-                        Hot\Cold
-                    </th>*@
-                    @*<th>
-                        Percentage
-                    </th>*@
+                        EvenCount
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -49,9 +43,10 @@
                 {
                     <tr>
                         <td width="50%">@item.Number</td>
-                        <td width="50%">@item.Quantity</td>
-                        <td width="50%">@item.OddPercentage</td> @*Todo: place odd and even properties to display!*@
+                        <td width="25%">@item.OddPercentage</td> @*Todo: place odd and even properties to display!*@
                         <td width="50%">@item.EvenPercentage</td>
+                        <td width="50%">@item.OddCount</td>
+                        <td width="50%">@item.EvenCount</td>
                         <td class="w-75 btn-group" role="group">
                             <a asp-controller="NumberBets" asp-route-id="@item.Id" asp-action="Edit" class="btn btn-primary">
                                 Edit

@@ -1,6 +1,7 @@
 ﻿using BoilerPlateRouletteSolution.Data;
 using BoilerPlateRouletteSolution.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,11 +18,11 @@ namespace BoilerPlateRouletteSolution.Controllers
             _applicationDbContext = applicationDbContext; // This is dependency injection. Read more about it 1º
             // This works because we already have added ApplicationDbContext in our services container.
         }
-        public IActionResult Index()
+        public IActionResult Index() // This populates NumberBets Index View
         {
             IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
-            Debug.WriteLine(objList);
-
+            //Debug.WriteLine(objList);
+            
             return View(objList);
         }
 
@@ -34,37 +35,32 @@ namespace BoilerPlateRouletteSolution.Controllers
         // POST FOR INSERT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertNumber(NumberStats obj, int? id) // User inserts a number, is passed here
+        public IActionResult InsertNumber(NumberStats obj) // Pass object to add to database
         {
             //obj.Number % = 0;
 
             // number is even
             // Increment number's quantity
-            // get color
             // Calculate statistic
 
             if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
-                //IEnumerable<NumberStats> objList = _applicationDbContext.NumberStats;
-                //foreach (var item in objList)
-                //{
-                //    obj.Quantity = obj.Quantity + 1;
-                //}
-                var totalNumbersInDb = _applicationDbContext.NumberStats.FirstOrDefault(u=>u.TotalNumberCount == obj.TotalNumberCount).TotalNumberCount;
+                var totalNumbersInDb = _applicationDbContext.NumberStats.Count(); // get total numbers inserted in db
 
-                if (obj.Number % 2 == 0) // if it's even
+                
+
+
+
+                if (obj.Number % 2 == 0)
                 {
-                    obj.EvenCount += 1; // add to even
                 }
-                else // else ut's odd
+                else 
                 {
-                    obj.OddCount += 1; // add to odd
+                    _applicationDbContext.NumberStats.Where(u=>u.OddCount == obj.OddCount + 1);
                 }
 
-                obj.TotalNumberCount += 1; // increment total by 1
-
-                obj.OddPercentage = (obj.OddCount / totalNumbersInDb) * 100;
-                obj.EvenPercentage = (obj.EvenCount / totalNumbersInDb) * 100;
+                //obj.OddPercentage = (obj.OddCount / totalNumbersInDb) * 100; // Todo: update OddPercentage property with db value
+                //obj.EvenPercentage = (obj.EvenCount / totalNumbersInDb) * 100; //
 
 
 
@@ -72,11 +68,10 @@ namespace BoilerPlateRouletteSolution.Controllers
 
                   _applicationDbContext.SaveChanges();
 
-                     return Redirect("Index");
+ 
+
+                return Redirect("Index");
             }
-
-
-
                 return View(obj);
         }
 
