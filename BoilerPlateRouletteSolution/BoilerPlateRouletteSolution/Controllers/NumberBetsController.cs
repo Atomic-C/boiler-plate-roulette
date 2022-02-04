@@ -43,20 +43,31 @@ namespace BoilerPlateRouletteSolution.Controllers
             // Increment number's quantity
             // Calculate statistic
 
+                    _applicationDbContext.NumberStats.Add(obj);
+
+                    _applicationDbContext.SaveChanges();
+
+                    var totalNumbersInDb = _applicationDbContext.NumberStats.Count(); // get total numbers inserted in db
+           
+
+                    var numberStatsFromDb = _applicationDbContext.NumberStats.FirstOrDefault(u => u.Id == obj.Id); //
+
+            var oddNumbersInDb = _applicationDbContext.NumberStats.Where(u => u.OddCount == obj.OddCount).Count();
+            
+            
+
             if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
-                var totalNumbersInDb = _applicationDbContext.NumberStats.Count(); // get total numbers inserted in db
-
-                
-
 
 
                 if (obj.Number % 2 == 0)
                 {
+
                 }
                 else 
                 {
-                    _applicationDbContext.NumberStats.Where(u=>u.OddCount == obj.OddCount + 1);
+                    numberStatsFromDb.OddCount += 1;
+                    _applicationDbContext.NumberStats.Update(obj);
                 }
 
                 //obj.OddPercentage = (obj.OddCount / totalNumbersInDb) * 100; // Todo: update OddPercentage property with db value
@@ -64,11 +75,8 @@ namespace BoilerPlateRouletteSolution.Controllers
 
 
 
-                _applicationDbContext.NumberStats.Add(obj);
 
-                  _applicationDbContext.SaveChanges();
-
- 
+                _applicationDbContext.SaveChanges();
 
                 return Redirect("Index");
             }
