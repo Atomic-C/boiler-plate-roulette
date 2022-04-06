@@ -48,13 +48,13 @@ namespace BoilerPlateRouletteSolution.Controllers
                     _applicationDbContext.SaveChanges();
 
                     var totalNumbersInDb = _applicationDbContext.NumberStats.Count(); // get total numbers inserted in db
-           
 
-                    var numberStatsFromDb = _applicationDbContext.NumberStats.FirstOrDefault(u => u.Id == obj.Id); //
+            //var oddNumbersInDb = _applicationDbContext.NumberStats.Include(u => u.OddCount).Where(u => u.Id == obj.Id).ToList(); // get 
+            var oddNumbersInDb = _applicationDbContext.NumberStats.Include(u => u.OddCount).Where(u => u.Id == obj.Id).ToList(); // get oddNumbers
 
-            var oddNumbersInDb = _applicationDbContext.NumberStats.Where(u => u.OddCount == obj.OddCount).Count();
-            
-            
+
+
+            // https://docs.microsoft.com/en-us/ef/core/querying/related-data/
 
             if (ModelState.IsValid) // This checks if validations in the model are valid. If so...
             {
@@ -66,7 +66,7 @@ namespace BoilerPlateRouletteSolution.Controllers
                 }
                 else 
                 {
-                    numberStatsFromDb.OddCount += 1;
+                    //numberStatsFromDb.OddCount += 1;
                     _applicationDbContext.NumberStats.Update(obj);
                 }
 

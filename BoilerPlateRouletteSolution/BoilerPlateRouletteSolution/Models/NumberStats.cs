@@ -27,3 +27,5 @@ namespace BoilerPlateRouletteSolution.Models
         public double TotalNumberCount { get; set; }
     }
 }
+// DBCC CHECKIDENT ('[RDB].[dbo].[NumberStats]', RESEED, 0);
+//GO
